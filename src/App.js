@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Lists from './Lists'
+import ListForm from './ListForm'
+import ListDelete from './ListDelete'
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path='/' component={Lists} />
+          <Route exact path='/lists' component={Lists} />
+          <Route exact path='/lists/new' component={ListForm} />
+          <Route
+            exact path="/lists/:id/edit"
+            render={(routeProps) => (
+              <ListForm {...routeProps} />
+            )}
+          />
+          <Route
+            exact path="/lists/:id/delete"
+            render={(routeProps) => (
+              <ListDelete {...routeProps} />
+            )}
+          />
+        </div>
+      </Router>
+    )
+  }
 }
 
-export default App;
+export default App
